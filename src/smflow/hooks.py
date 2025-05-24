@@ -1,6 +1,6 @@
 import logging
-import os
 import subprocess as sp
+from pathlib import Path
 
 from git import Repo
 
@@ -20,7 +20,7 @@ def update_branch_setting_in_dotgitmodules_from_local():
     """
     logging.info("Updating .gitmodules from local file state.")
 
-    cwd = os.path.basename(os.getcwd())
+    cwd = Path.cwd().name
 
     current_branch = (
         sp.check_output(
