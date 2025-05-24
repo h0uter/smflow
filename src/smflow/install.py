@@ -2,64 +2,56 @@ import logging
 import os
 import stat
 import subprocess as sp
+from pathlib import Path
 
 HOOK_SHELL = "/bin/sh"
 HOOK = "post-checkout"
+PARENT_HOOK = "uvx smflow attach-head"
+SUBMODULE_HOOK = "uvx smflow sync-from-local"
 
 
-def install_parent_hook(hook: str = HOOK):
-    PARENT_HOOK = "uvx smflow attach-head"
-
-    cwd = os.getcwd()
-    hook_dir = os.path.join(cwd, ".git", "hooks")
-    dst = os.path.join(hook_dir, hook)
-
+def install_hook(dst: Path, hook: str):
     with open(dst, "w") as dst_file:
         dst_file.write(f"#!{HOOK_SHELL}\n")
-        dst_file.write(f"echo 'Running '{PARENT_HOOK}' on {hook} hook in {cwd}'\n")
-        dst_file.write(PARENT_HOOK)
+        dst_file.write(f"echo 'Running '{hook}''\n")
+        dst_file.write(hook)
         dst_file.write("\n")
 
     # Make the hook executable
     st = os.stat(dst)
     os.chmod(dst, st.st_mode | stat.S_IXUSR)
 
-    logging.info(f"Installed '{PARENT_HOOK}' hook in '{hook_dir}'")
+    logging.info(f"Installed '{hook}' hook in '{dst}'")
 
 
-def install_submodule_hook(hook: str = HOOK):
-    SUBMODULE_HOOK = "uvx smflow sync-from-local"
+def install_parent_hook(hook: str, hook_type: str = HOOK):
+    cwd = os.getcwd()
+    hook_dir = os.path.join(cwd, ".git", "hooks")
+    dst = os.path.join(hook_dir, hook_type)
 
+    install_hook(dst, hook)
+
+
+def install_submodule_hook(hook: str, hook_type: str = HOOK):
     cwd = os.getcwd()
     hook_dirs = os.path.join(cwd, ".git", "modules")
 
-    count = 0
+    dsts: list[Path] = []
     for submodule in os.listdir(hook_dirs):
         sub_hook_dir = os.path.join(hook_dirs, submodule, "hooks")
 
         # Copy the hooks to the submodule's hooks directory
-        dst = os.path.join(sub_hook_dir, hook)
-        with open(dst, "w") as dst_file:
-            dst_file.write(f"#!{HOOK_SHELL}\n")
-            dst_file.write(
-                f"echo 'Running '{SUBMODULE_HOOK}' on {hook} hook in {cwd}'\n"
-            )
-            dst_file.write(SUBMODULE_HOOK)
-            dst_file.write("\n")
+        dst = os.path.join(sub_hook_dir, hook_type)
+        install_hook(dst, hook)
+        dsts.append(dst)
 
-        # Make the hook executable
-        st = os.stat(dst)
-        os.chmod(dst, st.st_mode | stat.S_IXUSR)
-        count += 1
-        logging.info(f"Installed '{SUBMODULE_HOOK}' hook in '{sub_hook_dir}'")
-
-    logging.info(f"Installed {count} submodule hooks.")
+    logging.info(f"Installed {len(dsts)} submodule hooks.")
 
 
 def install_hooks():
     logging.info("Installing hooks.")
-    install_parent_hook()
-    install_submodule_hook()
+    install_parent_hook(PARENT_HOOK)
+    install_submodule_hook(SUBMODULE_HOOK)
 
 
 def configure_git() -> None:
