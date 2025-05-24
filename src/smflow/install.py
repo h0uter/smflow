@@ -1,5 +1,7 @@
+import logging
 import os
 import stat
+import subprocess as sp
 
 
 def install_parent_hook():
@@ -10,7 +12,7 @@ def install_parent_hook():
 
     dst = os.path.join(hook_dir, hook)
 
-    PARENT_HOOK = "uv run python main.py attach-head"
+    PARENT_HOOK = "uvx smflow attach-head"
 
     with open(dst, "w") as dst_file:
         dst_file.write("#!/bin/bash\n")
@@ -32,7 +34,7 @@ def install_submodule_hook():
     # add hook for submodules
     hook = "post-checkout"
     hook_dirs = os.path.join(cwd, ".git", "modules")
-    SUBMODULE_HOOK = "uv run python ../main.py sync-from-local"
+    SUBMODULE_HOOK = "uvx smflow sync-from-local"
     for submodule in os.listdir(hook_dirs):
         sub_hook_dir = os.path.join(hook_dirs, submodule, "hooks")
 
@@ -57,3 +59,28 @@ def install_hooks():
     print("Installing hooks.")
     install_parent_hook()
     install_submodule_hook()
+
+
+def configure_git() -> None:
+    """Configure some ergonomics for git submodules."""
+    try:
+        sp.run(
+            ["git", "config", "--local", "submodule.recurse", "true"],
+            check=True,
+        )
+        logging.info(
+            "Automatically recurse into submodules when running git commands. Automatically checks out submodules when changing branches in the parent repository."
+        )
+    except sp.CalledProcessError as e:
+        print(f"Failed to configure git setting: {e}")
+
+    try:
+        sp.run(
+            ["git", "config", "--local", "push.recurseSubmodules", "on-demand"],
+            check=True,
+        )
+        logging.info(
+            "Automatically push submodules when pushing the parent repository. This will only push submodules that have been modified."
+        )
+    except sp.CalledProcessError as e:
+        print(f"Failed to configure git setting: {e}")
