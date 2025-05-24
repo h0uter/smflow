@@ -38,3 +38,7 @@ git config push.recurseSubmodules on-demand
 ```
 
 To automatically push changes in children when you try to push parent repository, and it references child commits that are not present on their origin yet (only works if parent and child have identical branch names). Otherwise, it will warn you and suggest first pushing the child repository.
+
+## Notes
+
+- smflow does not currently support recursive submodules, i.e. submodules inside submodules.
