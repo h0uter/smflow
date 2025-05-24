@@ -9,7 +9,7 @@ positional arguments:
     init                Setup all functionality of smflow.
     install-hooks       Installs the githooks.
     configure-git       Configures some ergonomics for git submodules.
-    attach-head         Attaches the head of the submodules to the branch and reset to the commit-sha.
+    attach-heads        Attaches the head of the submodules to the branch and reset to the commit-sha.
     sync-from-local     Updates .gitmodules from local file state.
 
 options:
@@ -42,7 +42,7 @@ def main() -> None:
 
     # hooks commands
     subparsers.add_parser(
-        "attach-head",
+        "attach-heads",
         help="Attaches the head of the submodules to the branch and reset to the commit-sha.",
     )
     subparsers.add_parser(
@@ -63,7 +63,7 @@ def main() -> None:
             configure_git()
 
         # hooks
-        case "attach-head":
+        case "attach-heads":
             reattach_submodule_heads_to_branch()
         case "sync-from-local":
             update_branch_setting_in_dotgitmodules_from_local()

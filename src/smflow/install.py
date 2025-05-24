@@ -6,8 +6,8 @@ from pathlib import Path
 
 HOOK_SHELL = "/bin/sh"
 HOOK = "post-checkout"
-PARENT_HOOK = "uvx smflow attach-head"
-SUBMODULE_HOOK = "uvx smflow sync-from-local"
+PARENT_HOOK = "smflow attach-heads"
+SUBMODULE_HOOK = "smflow sync-from-local"
 
 
 def _install_hook(destination: Path, hook: str):
