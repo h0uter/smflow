@@ -4,10 +4,12 @@ import stat
 import subprocess as sp
 from pathlib import Path
 
+from smflow.cmd import Cmd
+
 HOOK_SHELL = "/bin/sh"
 HOOK = "post-checkout"
-PARENT_HOOK = "smflow attach-heads"
-SUBMODULE_HOOK = "smflow sync-from-local"
+PARENT_HOOK = f"smflow {Cmd.ATTACH_HEADS}"
+SUBMODULE_HOOK = f"smflow {Cmd.SYNC_FROM_LOCAL}"
 
 
 def _install_hook(destination: Path, hook: str):
