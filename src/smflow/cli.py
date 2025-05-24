@@ -20,7 +20,8 @@ def main() -> None:
     subparsers.add_parser(Cmd.INIT, help="Setup all functionality of smflow.")
     subparsers.add_parser(Cmd.INSTALL_HOOKS, help="Installs the githooks.")
     subparsers.add_parser(
-        Cmd.CONFIGURE_GIT, help="Configures some ergonomic settings for git submodules in local `.gitconfig`."
+        Cmd.CONFIGURE_GIT,
+        help="Configures some ergonomic settings for git submodules in local `.gitconfig`.",
     )
 
     # hooks commands
