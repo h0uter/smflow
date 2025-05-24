@@ -4,8 +4,6 @@
 [![Downloads](https://static.pepy.tech/badge/smflow)](https://pepy.tech/project/smflow)
 [![image](https://img.shields.io/pypi/pyversions/smflow.svg)](https://pypi.python.org/pypi/smflow)
 
-# Git Submodule Flow (`smflow`)
-
 <br />
 <div align="center">
     <div align="center">
@@ -15,7 +13,7 @@
   <!-- <h3 align="center">humid</h3> -->
 
   <p align="center">
-    <b>smflow</b> is a lightweight toolset and set of Git hooks designed to make working with Git submodules significantly easier. It helps keep submodules in sync with the parent repository, enabling a "virtual monorepo" workflow — without giving up the benefits of repository modularity.
+    Git submodule flow (<b>smflow</b>) is a lightweight toolset and set of Git hooks designed to make working with Git submodules significantly easier. It helps keep submodules in sync with the parent repository, enabling a "virtual monorepo" workflow — without giving up the benefits of repository modularity.
     <br />
     <a href="https://h0uter.github.io/smflow"><strong>Explore the docs »</strong></a>
     <br />
