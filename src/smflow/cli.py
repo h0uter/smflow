@@ -54,9 +54,9 @@ def main() -> None:
     match args.command:
         # install
         case "init":
+            init_submodules()
             install_hooks()
             configure_git()
-            init_submodules()
         case "install-hooks":
             install_hooks()
         case "configure-git":
