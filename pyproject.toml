@@ -1,7 +1,7 @@
 [project]
 
 name = "smflow"
-version = "0.3.7"
+version = "0.3.8"
 description = "Tools and git hooks to make it easier to work with submodules that are updated frequently."
 readme = "README.md"
 authors = [{ name = "W. Meijer", email = "houterm@gmail.com" }]
