@@ -4,21 +4,19 @@ import stat
 import subprocess as sp
 
 HOOK_SHELL = "/bin/sh"
+HOOK = "post-checkout"
 
 
-def install_parent_hook():
-    cwd = os.getcwd()
-
-    hook = "post-checkout"
-    hook_dir = os.path.join(cwd, ".git", "hooks")
-
-    dst = os.path.join(hook_dir, hook)
-
+def install_parent_hook(hook: str = HOOK):
     PARENT_HOOK = "uvx smflow attach-head"
+
+    cwd = os.getcwd()
+    hook_dir = os.path.join(cwd, ".git", "hooks")
+    dst = os.path.join(hook_dir, hook)
 
     with open(dst, "w") as dst_file:
         dst_file.write(f"#!{HOOK_SHELL}\n")
-        dst_file.write(f"echo 'Running {hook} hook in {cwd}'\n")
+        dst_file.write(f"echo 'Running '{PARENT_HOOK}' on {hook} hook in {cwd}'\n")
         dst_file.write(PARENT_HOOK)
         dst_file.write("\n")
 
@@ -29,13 +27,13 @@ def install_parent_hook():
     logging.info(f"Installed '{PARENT_HOOK}' hook in '{hook_dir}'")
 
 
-def install_submodule_hook():
-    cwd = os.getcwd()
-    count = 0
-    # add hook for submodules
-    hook = "post-checkout"
-    hook_dirs = os.path.join(cwd, ".git", "modules")
+def install_submodule_hook(hook: str = HOOK):
     SUBMODULE_HOOK = "uvx smflow sync-from-local"
+
+    cwd = os.getcwd()
+    hook_dirs = os.path.join(cwd, ".git", "modules")
+
+    count = 0
     for submodule in os.listdir(hook_dirs):
         sub_hook_dir = os.path.join(hook_dirs, submodule, "hooks")
 
@@ -43,7 +41,9 @@ def install_submodule_hook():
         dst = os.path.join(sub_hook_dir, hook)
         with open(dst, "w") as dst_file:
             dst_file.write(f"#!{HOOK_SHELL}\n")
-            dst_file.write(f"echo 'Running {hook} hook in {cwd}'\n")
+            dst_file.write(
+                f"echo 'Running '{SUBMODULE_HOOK}' on {hook} hook in {cwd}'\n"
+            )
             dst_file.write(SUBMODULE_HOOK)
             dst_file.write("\n")
 
