@@ -3,6 +3,8 @@ import os
 import stat
 import subprocess as sp
 
+HOOK_SHELL = "/bin/sh"
+
 
 def install_parent_hook():
     cwd = os.getcwd()
@@ -15,7 +17,7 @@ def install_parent_hook():
     PARENT_HOOK = "uvx smflow attach-head"
 
     with open(dst, "w") as dst_file:
-        dst_file.write("#!/bin/bash\n")
+        dst_file.write(f"#!{HOOK_SHELL}\n")
         dst_file.write(f"echo 'Running {hook} hook in {cwd}'\n")
         dst_file.write(PARENT_HOOK)
         dst_file.write("\n")
@@ -40,7 +42,7 @@ def install_submodule_hook():
         # Copy the hooks to the submodule's hooks directory
         dst = os.path.join(sub_hook_dir, hook)
         with open(dst, "w") as dst_file:
-            dst_file.write("#!/bin/bash\n")
+            dst_file.write(f"#!{HOOK_SHELL}\n")
             dst_file.write(f"echo 'Running {hook} hook in {cwd}'\n")
             dst_file.write(SUBMODULE_HOOK)
             dst_file.write("\n")
