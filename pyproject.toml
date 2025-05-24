@@ -1,4 +1,5 @@
 [project]
+
 name = "smflow"
 version = "0.3.7"
 description = "Tools and git hooks to make it easier to work with submodules that are updated frequently."
@@ -31,6 +32,9 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development :: Libraries",
 ]
+
+[project.urls]
+Homepage = "https://github.com/h0uter/smflow"
 
 [project.scripts]
 smflow = "smflow:main"
