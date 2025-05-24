@@ -37,6 +37,28 @@ smflow init
 
 This will configure your repository with the appropriate Git settings and install the necessary hooks.
 
+```bash
+usage: smflow [-h]
+              {init,install-hooks,configure-git,attach-heads,sync-from-local}
+              ...
+
+Make the flow of working with Git submodules smoother.
+
+positional arguments:
+  {init,install-hooks,configure-git,attach-heads,sync-from-local}
+                        command to run
+    init                Setup all functionality of smflow.
+    install-hooks       Installs the githooks.
+    configure-git       Configures some ergonomic settings for git submodules
+                        in local `.gitconfig`.
+    attach-heads        Attaches the head of the submodules to the branch and
+                        reset to the commit-sha.
+    sync-from-local     Updates .gitmodules from local file state.
+
+options:
+  -h, --help            show this help message and exit
+```
+
 ## 🔍 What smflow init Does
 
 ### 🔗 Git Hooks

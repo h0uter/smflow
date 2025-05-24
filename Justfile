@@ -9,5 +9,5 @@ publish:
     uv publish
     rm -rf dist
 
-update_readme:
-    cog README.template.md -o README.md
+update-readme:
+    uvx cogapp -o README.md -d README.template.md

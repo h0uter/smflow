@@ -39,13 +39,10 @@ This will configure your repository with the appropriate Git settings and instal
 
 <!-- [[[cog
     import subprocess as sp
-    sp.check_output(
-            ["smflow", "--help"],
-            stderr=sp.DEVNULL,
-        )
-        .decode()
-    
+    out = sp.check_output(["smflow", "--help"], stderr=sp.DEVNULL).decode()
+    cog.out("```bash\n" + out + "```\n")
 ]]] -->
+<!-- [[[end]]] -->
 
 ## 🔍 What smflow init Does
 
@@ -86,5 +83,3 @@ Managing submodules manually is tedious and error-prone. smflow minimizes the ov
 - Prevent pushing parent branches that reference unpublished submodule commits
 
 Whether you’re working with multiple shared libraries or simply trying to tame Git submodules, smflow provides a smoother, safer workflow.
-
-<!-- [[[end]]] -->
