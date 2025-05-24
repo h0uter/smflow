@@ -65,19 +65,17 @@ def reattach_submodule_heads_to_branch():
     """
     repo = Repo(".")
 
-    for sm in repo.submodules:
-        subrepo: Repo = sm.module()
-
-        path = sm.path
+    for submodule in repo.submodules:
+        subrepo: Repo = submodule.module()
 
         # Get the commit hash the parent repo is pointing to
-        entry = repo.head.commit.tree / path
+        entry = repo.head.commit.tree / submodule.path
         submodule_commit_hash = entry.hexsha
 
-        with sm.config_reader() as cr:
+        with submodule.config_reader() as cr:
             branch = cr.get_value("branch")
 
-        logging.info(f"{sm.name} {sm.url} {sm.path} {branch}")
+        logging.info(f"{submodule.name} {submodule.url} {submodule.path} {branch}")
 
         subrepo.git.checkout(branch)
 
