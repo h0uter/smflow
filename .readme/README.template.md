@@ -14,9 +14,9 @@
 
   <p align="center">
     Git submodule flow (<b>smflow</b>) is a lightweight toolset and set of Git hooks designed to make working with Git submodules significantly easier. It helps keep submodules in sync with the parent repository, enabling a "virtual monorepo" workflow — without giving up the benefits of repository modularity.
-    <br />
-    <a href="https://h0uter.github.io/smflow"><strong>Explore the docs »</strong></a>
-    <br />
+    <!-- <br /> -->
+    <!-- <a href="https://h0uter.github.io/smflow"><strong>Explore the docs »</strong></a> -->
+    <!-- <br /> -->
     <br />
     <a href="https://github.com/h0uter/smflow/issues/new?labels=bug&title=New+bug+report">Report Bug</a>
     ·
