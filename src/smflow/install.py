@@ -10,7 +10,7 @@ PARENT_HOOK = "uvx smflow attach-head"
 SUBMODULE_HOOK = "uvx smflow sync-from-local"
 
 
-def install_hook(destination: Path, hook: str):
+def _install_hook(destination: Path, hook: str):
     with open(destination, "w") as hook_file:
         hook_file.write(f"#!{HOOK_SHELL}\n")
         hook_file.write(f"echo 'Running '{hook}''\n")
@@ -29,7 +29,7 @@ def install_parent_hook(hook: str, hook_type: str = HOOK):
     hook_dir = cwd / ".git" / "hooks"
     destination = hook_dir / hook_type
 
-    install_hook(destination, hook)
+    _install_hook(destination, hook)
 
 
 def install_submodule_hook(hook: str, hook_type: str = HOOK):
@@ -42,7 +42,7 @@ def install_submodule_hook(hook: str, hook_type: str = HOOK):
 
         # Copy the hooks to the submodule's hooks directory
         destination = submodule_hook_dir / hook_type
-        install_hook(destination, hook)
+        _install_hook(destination, hook)
         destinations.append(destination)
 
     logging.info(f"Installed {len(destinations)} submodule hooks.")
@@ -77,3 +77,12 @@ def configure_git() -> None:
         )
     except sp.CalledProcessError as e:
         print(f"Failed to configure git setting: {e}")
+
+
+def init_submodules() -> None:
+    """Initialize the submodule."""
+    try:
+        sp.run(["git", "submodule", "update", "--init", "--recursive"], check=True)
+        logging.info("Submodule initialized.")
+    except sp.CalledProcessError as e:
+        print(f"Failed to initialize submodule: {e}")

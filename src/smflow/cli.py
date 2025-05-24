@@ -22,7 +22,7 @@ from smflow.hooks import (
     reattach_submodule_heads_to_branch,
     update_branch_setting_in_dotgitmodules_from_local,
 )
-from smflow.install import configure_git, install_hooks
+from smflow.install import configure_git, init_submodules, install_hooks
 
 
 def main() -> None:
@@ -56,6 +56,7 @@ def main() -> None:
         case "init":
             install_hooks()
             configure_git()
+            init_submodules()
         case "install-hooks":
             install_hooks()
         case "configure-git":
