@@ -1,6 +1,7 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://pre-commit.com)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![image](https://img.shields.io/pypi/v/smflow.svg)](https://pypi.python.org/pypi/smflow)
+[![image](https://img.shields.io/pypi/pyversions/smflow.svg)](https://pypi.python.org/pypi/smflow)
 
 # Git Submodule Flow (`smflow`)
 

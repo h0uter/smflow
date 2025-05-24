@@ -1,7 +1,7 @@
 [project]
 name = "smflow"
-version = "0.3.6"
-description = "Tools and git hooks to make it easier to work with submodules are updated frequently, enable a sort of virtual mono repo."
+version = "0.3.7"
+description = "Tools and git hooks to make it easier to work with submodules that are updated frequently."
 readme = "README.md"
 authors = [{ name = "W. Meijer", email = "houterm@gmail.com" }]
 requires-python = ">=3.10"
