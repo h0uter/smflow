@@ -1,3 +1,4 @@
+import logging
 import os
 import subprocess as sp
 
@@ -17,7 +18,7 @@ def update_branch_setting_in_dotgitmodules_from_local():
     Raises:
         subprocess.CalledProcessError: If the git commands fail.
     """
-    print("Updating .gitmodules from local file state.")
+    logging.info("Updating .gitmodules from local file state.")
 
     cwd = os.path.basename(os.getcwd())
 
@@ -31,10 +32,10 @@ def update_branch_setting_in_dotgitmodules_from_local():
     )
 
     if current_branch == "HEAD":
-        print(f"Submodule {cwd} is in a detached HEAD state.")
+        logging.warning(f"Submodule {cwd} is in a detached HEAD state.")
         return
 
-    print(f"Submodule {cwd} is on branch {current_branch}.")
+    logging.info(f"Submodule {cwd} is on branch {current_branch}.")
 
     sp.run(
         [
@@ -76,7 +77,7 @@ def reattach_submodule_heads_to_branch():
         with sm.config_reader() as cr:
             branch = cr.get_value("branch")
 
-        print(sm.name, sm.url, sm.path, branch)
+        logging.info(f"{sm.name} {sm.url} {sm.path} {branch}")
 
         subrepo.git.checkout(branch)
 
