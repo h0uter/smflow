@@ -1,12 +1,12 @@
 """
 usage: smflow [-h] {attach-head,sync-from-local,install-hooks} ...
 
-Git submodule management script.
+Make the flow of working with Git submodules smoother.
 
 positional arguments:
   {attach-head,sync-from-local,install-hooks}
-                        Sub-command to run
-    attach-head         Attaches the head of the submodules to the branch.
+                        command to run
+    attach-head         Attaches the head of the submodules to the branch and reset to the commit-sha.
     sync-from-local     Updates .gitmodules from local file state.
     install-hooks       Installs the githooks.
 
@@ -23,7 +23,7 @@ from smflow.hooks import (
 from smflow.install import install_hooks
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         description="Make the flow of working with Git submodules smoother."
     )
