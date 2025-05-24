@@ -25,23 +25,23 @@ def install_hook(dst: Path, hook: str):
 
 
 def install_parent_hook(hook: str, hook_type: str = HOOK):
-    cwd = os.getcwd()
-    hook_dir = os.path.join(cwd, ".git", "hooks")
-    dst = os.path.join(hook_dir, hook_type)
+    cwd = Path.cwd()
+    hook_dir = cwd / ".git" / "hooks"
+    dst = hook_dir / hook_type
 
     install_hook(dst, hook)
 
 
 def install_submodule_hook(hook: str, hook_type: str = HOOK):
-    cwd = os.getcwd()
-    hook_dirs = os.path.join(cwd, ".git", "modules")
+    cwd = Path.cwd()
+    hook_dirs = cwd / ".git" / "modules"
 
     dsts: list[Path] = []
-    for submodule in os.listdir(hook_dirs):
-        sub_hook_dir = os.path.join(hook_dirs, submodule, "hooks")
+    for submodule in hook_dirs.iterdir():
+        sub_hook_dir = hook_dirs / submodule / "hooks"
 
         # Copy the hooks to the submodule's hooks directory
-        dst = os.path.join(sub_hook_dir, hook_type)
+        dst = sub_hook_dir / hook_type
         install_hook(dst, hook)
         dsts.append(dst)
 
