@@ -72,13 +72,8 @@ options:
 
 The following hooks will be installed:
 
-- Post-checkout hook
-
-Automatically resets submodules to the correct commit when you checkout a branch in the parent repository.
-
-- Post-branch-change hook
-
-Updates .gitmodules when you switch between branches, ensuring consistency across the repo.
+- Post-checkout hook parent: Automatically attaches to branch and resets submodules to the correct commit when you checkout a branch in the parent repository.
+- Post-Checkout hook submodules: Updates `.gitmodules` when you switch between branches in the children, ensuring easy updates.
 
 ### ⚙️ Git Configuration
 

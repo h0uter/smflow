@@ -10,5 +10,5 @@ publish: update-readme
     rm -rf dist
 
 update-readme:
-    uvx --from cogapp cog -o README.md -d README.template.md
+    uvx --from cogapp cog -o README.md -d ./.readme/README.template.md
     git add README.md
