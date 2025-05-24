@@ -53,15 +53,11 @@ def main():
             raise ValueError(f"Unknown command: {args.command}")
 
 
-def install_hooks():
-    print("Installing hooks.")
-
+def install_parent_hook():
     cwd = os.getcwd()
 
     hook = "post-checkout"
     hook_dir = os.path.join(cwd, ".git", "hooks")
-
-    # Copy the hooks to the submodule's hooks directory
 
     dst = os.path.join(hook_dir, hook)
 
@@ -80,8 +76,9 @@ def install_hooks():
     print(f"Installed '{PARENT_HOOK}' hook in '{hook_dir}'")
     print()
 
-    """Submodule hooks below"""
 
+def install_submodule_hook():
+    cwd = os.getcwd()
     count = 0
     # add hook for submodules
     hook = "post-checkout"
@@ -105,6 +102,12 @@ def install_hooks():
         print(f"Installed '{SUBMODULE_HOOK}' hook in '{sub_hook_dir}'")
 
     print(f"Installed {count} submodule hooks.")
+
+
+def install_hooks():
+    print("Installing hooks.")
+    install_parent_hook()
+    install_submodule_hook()
 
 
 def update_branch_setting_in_dotgitmodules_from_local():
