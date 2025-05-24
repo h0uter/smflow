@@ -58,7 +58,7 @@ git config submodule.recurse true
 Ensures submodules are automatically checked out when switching branches.
 
 ```bash
-Ensures submodules are automatically checked out when switching branches.
+git config push.recurseSubmodules on-demand
 ```
 
 Allows pushing submodule commits automatically when pushing the parent repository — if the submodules and parent share the same branch name. If not, Git will warn and suggest pushing submodules first.
