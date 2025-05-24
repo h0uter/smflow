@@ -45,9 +45,14 @@ def main() -> None:
     subparsers.add_parser(
         Cmd.ATTACH_HEADS,
         help="Attaches the head of the submodules to the branch and reset to the commit-sha.",
+        description="doc:" + reattach_submodule_heads_to_branch.__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     subparsers.add_parser(
-        Cmd.SYNC_FROM_LOCAL, help="Updates .gitmodules from local file state."
+        Cmd.SYNC_FROM_LOCAL,
+        help="Updates .gitmodules from local file state.",
+        description="doc:" + update_branch_setting_in_dotgitmodules_from_local.__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     args = parser.parse_args()
