@@ -42,7 +42,7 @@ For help and available commands, run: `smflow --help`:
 <!-- [[[cog
     import subprocess as sp
     out = sp.check_output(["smflow", "--help"], stderr=sp.DEVNULL).decode()
-    cog.out("```bash\n" + out + "```\n")
+    cog.out("```\n" + out + "```\n")
 ]]] -->
 <!-- [[[end]]] -->
 
@@ -51,9 +51,13 @@ For help and available commands, run: `smflow --help`:
 ### 🔗 Git Hooks
 
 The following hooks will be installed:
- • Post-checkout hook
+
+- Post-checkout hook
+
 Automatically resets submodules to the correct commit when you checkout a branch in the parent repository.
- • Post-branch-change hook
+
+- Post-branch-change hook
+
 Updates .gitmodules when you switch between branches, ensuring consistency across the repo.
 
 ### ⚙️ Git Configuration
