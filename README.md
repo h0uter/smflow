@@ -1,44 +1,78 @@
 # smflow
 
-Tools and git hooks to make it easier to work with submodules are updated frequently, enable a sort of virtual mono repo.
+**smflow** is a lightweight toolset and set of Git hooks designed to make working with Git submodules significantly easier. It helps keep submodules in sync with the parent repository, enabling a "virtual monorepo" workflow — without giving up the benefits of repository modularity.
 
-## Usage
+---
 
-> requires `uv` to be installed
+## 🚀 Features
 
-Install with `uv tool install smflow`
+- Intuitively work with submodules through VS Code git interface.
+- Automatically attaches submodule `HEAD`s to the commits referenced by the parent repository.
+- Quickly see how many changes the current submodule is behind the tracked branch.
+- Keeps local submodules in sync when switching branches in the parent project.
+- Automatically update `.gitmodules` in parent when changing locally checking out branches for submodules.
+- Configures Git for a smoother submodule experience:
+  - Auto-checkout submodules on branch change
+  - Auto-push submodule commits when pushing the parent
 
-Then from your parent project with submodules run:
+---
+
+## 📦 Installation
+
+> **Note**: Requires [`uv`](https://github.com/astral-sh/uv) to be installed.
+
+Install smflow with:
+
+```bash
+uv tool install smflow
+```
+
+## 🛠️ Usage
+
+From the root of your parent repository (the one that contains submodules), run:
 
 ```bash
 smflow init
 ```
 
-## Details
+This will configure your repository with the appropriate Git settings and install the necessary hooks.
 
-`smflow init` will:
+## 🔍 What smflow init Does
 
-### Git hooks
+### 🔗 Git Hooks
 
-- Automatically attach heads and reset submodules to the correct commit when you checkout a branch in the parent repository.
-- Automatically update `.gitmodules` when you change branches in the children.
+The following hooks will be installed:
+ • Post-checkout hook
+Automatically resets submodules to the correct commit when you checkout a branch in the parent repository.
+ • Post-branch-change hook
+Updates .gitmodules when you switch between branches, ensuring consistency across the repo.
 
-### Git submodule settings
+### ⚙️ Git Configuration
 
-`smflow` wil set the following git settings:
+smflow sets these recommended Git config values:
 
 ```bash
 git config submodule.recurse true
 ```
 
-To automatically checkout the submodules when you change branch in the parent.
+Ensures submodules are automatically checked out when switching branches.
 
 ```bash
-git config push.recurseSubmodules on-demand
+Ensures submodules are automatically checked out when switching branches.
 ```
 
-To automatically push changes in children when you try to push parent repository, and it references child commits that are not present on their origin yet (only works if parent and child have identical branch names). Otherwise, it will warn you and suggest first pushing the child repository.
+Allows pushing submodule commits automatically when pushing the parent repository — if the submodules and parent share the same branch name. If not, Git will warn and suggest pushing submodules first.
 
-## Notes
+## ⚠️ Limitations
 
-- smflow does not currently support recursive submodules, i.e. submodules inside submodules.
+- smflow does not currently support recursive submodules, i.e. submodules within submodules.
+
+## 🧩 Why smflow?
+
+Managing submodules manually is tedious and error-prone. smflow minimizes the overhead and makes it easier to:
+
+- Stay in sync with your team
+- Avoid detached HEAD states in submodules
+- Prevent pushing parent branches that reference unpublished submodule commits
+
+Whether you’re working with multiple shared libraries or simply trying to tame Git submodules, smflow provides a smoother, safer workflow.
