@@ -8,8 +8,10 @@ from smflow.cmd import Cmd
 
 HOOK_SHELL = "/bin/sh"
 HOOK_TYPE = "post-checkout"
-PARENT_HOOK = f"smflow {Cmd.ATTACH_HEADS}"
-SUBMODULE_HOOK = f"smflow {Cmd.SYNC_FROM_LOCAL}"
+
+# only run with uvx if smflow is not installed globally
+PARENT_HOOK = f"command -v smflow >/dev/null && smflow {Cmd.ATTACH_HEADS} || uvx smflow {Cmd.ATTACH_HEADS}"
+SUBMODULE_HOOK = f"command -v smflow >/dev/null && smflow {Cmd.SYNC_FROM_LOCAL} || uvx smflow {Cmd.SYNC_FROM_LOCAL}"
 
 
 def _install_hook(destination: Path, hook: str):
