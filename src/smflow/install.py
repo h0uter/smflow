@@ -24,8 +24,7 @@ def install_parent_hook():
     st = os.stat(dst)
     os.chmod(dst, st.st_mode | stat.S_IXUSR)
 
-    print(f"Installed '{PARENT_HOOK}' hook in '{hook_dir}'")
-    print()
+    logging.info(f"Installed '{PARENT_HOOK}' hook in '{hook_dir}'")
 
 
 def install_submodule_hook():
@@ -50,13 +49,13 @@ def install_submodule_hook():
         st = os.stat(dst)
         os.chmod(dst, st.st_mode | stat.S_IXUSR)
         count += 1
-        print(f"Installed '{SUBMODULE_HOOK}' hook in '{sub_hook_dir}'")
+        logging.info(f"Installed '{SUBMODULE_HOOK}' hook in '{sub_hook_dir}'")
 
-    print(f"Installed {count} submodule hooks.")
+    logging.info(f"Installed {count} submodule hooks.")
 
 
 def install_hooks():
-    print("Installing hooks.")
+    logging.info("Installing hooks.")
     install_parent_hook()
     install_submodule_hook()
 
