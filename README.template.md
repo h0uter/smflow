@@ -37,6 +37,8 @@ smflow init
 
 This will configure your repository with the appropriate Git settings and install the necessary hooks.
 
+For help and available commands, run: `smflow --help`:
+
 <!-- [[[cog
     import subprocess as sp
     out = sp.check_output(["smflow", "--help"], stderr=sp.DEVNULL).decode()
