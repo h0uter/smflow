@@ -7,7 +7,7 @@ from pathlib import Path
 from smflow.cmd import Cmd
 
 HOOK_SHELL = "/bin/sh"
-HOOK = "post-checkout"
+HOOK_TYPE = "post-checkout"
 PARENT_HOOK = f"smflow {Cmd.ATTACH_HEADS}"
 SUBMODULE_HOOK = f"smflow {Cmd.SYNC_FROM_LOCAL}"
 
@@ -26,7 +26,7 @@ def _install_hook(destination: Path, hook: str):
     logging.info(f"Installed '{hook}' hook in '{destination}'")
 
 
-def install_parent_hook(hook: str, hook_type: str = HOOK):
+def install_parent_hook(hook: str, hook_type: str = HOOK_TYPE):
     cwd = Path.cwd()
     hook_dir = cwd / ".git" / "hooks"
     destination = hook_dir / hook_type
@@ -34,7 +34,7 @@ def install_parent_hook(hook: str, hook_type: str = HOOK):
     _install_hook(destination, hook)
 
 
-def install_submodule_hook(hook: str, hook_type: str = HOOK):
+def install_submodule_hook(hook: str, hook_type: str = HOOK_TYPE):
     cwd = Path.cwd()
     submodules = cwd / ".git" / "modules"
 
