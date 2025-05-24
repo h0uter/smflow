@@ -7,3 +7,4 @@ publish:
     git push origin main --tags
     uv build
     uv publish
+    rm -rf dist
