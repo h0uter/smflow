@@ -23,13 +23,16 @@ from git import Repo
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Git submodule management script.")
+    parser = argparse.ArgumentParser(
+        description="Make the flow of working with Git submodules smoother."
+    )
     subparsers = parser.add_subparsers(
-        dest="command", required=True, help="Sub-command to run"
+        dest="command", required=True, help="command to run"
     )
 
     subparsers.add_parser(
-        "attach-head", help="Attaches the head of the submodules to the branch."
+        "attach-head",
+        help="Attaches the head of the submodules to the branch and reset to the commit-sha.",
     )
 
     subparsers.add_parser(
