@@ -1,11 +1,30 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://pre-commit.com)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![image](https://img.shields.io/pypi/v/smflow.svg)](https://pypi.python.org/pypi/smflow)
+[![Downloads](https://static.pepy.tech/badge/smflow)](https://pepy.tech/project/smflow)
 [![image](https://img.shields.io/pypi/pyversions/smflow.svg)](https://pypi.python.org/pypi/smflow)
 
 # Git Submodule Flow (`smflow`)
 
-**smflow** is a lightweight toolset and set of Git hooks designed to make working with Git submodules significantly easier. It helps keep submodules in sync with the parent repository, enabling a "virtual monorepo" workflow — without giving up the benefits of repository modularity.
+<br />
+<div align="center">
+    <div align="center">
+    <!-- <img src=".readme/the logo.png" alt="alt text" width="250" height="whatever"> -->
+    <img src="https://raw.githubusercontent.com/h0uter/smflow/main/.readme/logo.png" alt="alt text" width="250" height="whatever">
+    </div>
+  <!-- <h3 align="center">humid</h3> -->
+
+  <p align="center">
+    <b>smflow</b> is a lightweight toolset and set of Git hooks designed to make working with Git submodules significantly easier. It helps keep submodules in sync with the parent repository, enabling a "virtual monorepo" workflow — without giving up the benefits of repository modularity.
+    <br />
+    <a href="https://h0uter.github.io/smflow"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/h0uter/smflow/issues/new?labels=bug&title=New+bug+report">Report Bug</a>
+    ·
+    <a href="https://github.com/h0uter/smflow/issues/new?labels=enhancement&title=New+feature+request">Request Feature</a>
+  </p>
+</div>
 
 ---
 
@@ -14,11 +33,8 @@
 - Intuitively work with submodules through VS Code git interface.
 - Automatically attaches submodule `HEAD`s to the commits referenced by the parent repository.
 - Quickly see how many changes the current submodule is behind the tracked branch.
-- Keeps local submodules in sync when switching branches in the parent project.
+- Correctly set local submodules when switching branches in the parent project.
 - Automatically update `.gitmodules` in parent when changing locally checking out branches for submodules.
-- Configures Git for a smoother submodule experience:
-  - Auto-checkout submodules on branch change
-  - Auto-push submodule commits when pushing the parent
 
 ---
 
