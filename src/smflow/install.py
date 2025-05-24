@@ -10,42 +10,42 @@ PARENT_HOOK = "uvx smflow attach-head"
 SUBMODULE_HOOK = "uvx smflow sync-from-local"
 
 
-def install_hook(dst: Path, hook: str):
-    with open(dst, "w") as dst_file:
-        dst_file.write(f"#!{HOOK_SHELL}\n")
-        dst_file.write(f"echo 'Running '{hook}''\n")
-        dst_file.write(hook)
-        dst_file.write("\n")
+def install_hook(destination: Path, hook: str):
+    with open(destination, "w") as hook_file:
+        hook_file.write(f"#!{HOOK_SHELL}\n")
+        hook_file.write(f"echo 'Running '{hook}''\n")
+        hook_file.write(hook)
+        hook_file.write("\n")
 
     # Make the hook executable
-    st = os.stat(dst)
-    os.chmod(dst, st.st_mode | stat.S_IXUSR)
+    st = os.stat(destination)
+    os.chmod(destination, st.st_mode | stat.S_IXUSR)
 
-    logging.info(f"Installed '{hook}' hook in '{dst}'")
+    logging.info(f"Installed '{hook}' hook in '{destination}'")
 
 
 def install_parent_hook(hook: str, hook_type: str = HOOK):
     cwd = Path.cwd()
     hook_dir = cwd / ".git" / "hooks"
-    dst = hook_dir / hook_type
+    destination = hook_dir / hook_type
 
-    install_hook(dst, hook)
+    install_hook(destination, hook)
 
 
 def install_submodule_hook(hook: str, hook_type: str = HOOK):
     cwd = Path.cwd()
-    hook_dirs = cwd / ".git" / "modules"
+    submodules = cwd / ".git" / "modules"
 
-    dsts: list[Path] = []
-    for submodule in hook_dirs.iterdir():
-        sub_hook_dir = hook_dirs / submodule / "hooks"
+    destinations: list[Path] = []
+    for submodule in submodules.iterdir():
+        submodule_hook_dir = submodules / submodule / "hooks"
 
         # Copy the hooks to the submodule's hooks directory
-        dst = sub_hook_dir / hook_type
-        install_hook(dst, hook)
-        dsts.append(dst)
+        destination = submodule_hook_dir / hook_type
+        install_hook(destination, hook)
+        destinations.append(destination)
 
-    logging.info(f"Installed {len(dsts)} submodule hooks.")
+    logging.info(f"Installed {len(destinations)} submodule hooks.")
 
 
 def install_hooks():
