@@ -8,3 +8,6 @@ publish:
     uv build
     uv publish
     rm -rf dist
+
+update_readme:
+    cog README.template.md -o README.md
