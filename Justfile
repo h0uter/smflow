@@ -1,2 +1,4 @@
-test:
-    uv run pytest -v
+publish:
+    uv version --bump minor
+    uv build
+    uv publish
