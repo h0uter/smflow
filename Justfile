@@ -1,4 +1,4 @@
-publish:
+publish: update-readme
     uv version --bump patch
     git add pyproject.toml
     git add uv.lock
@@ -11,3 +11,4 @@ publish:
 
 update-readme:
     uvx --from cogapp cog -o README.md -d README.template.md
+    git add README.md
